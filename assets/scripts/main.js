@@ -82,11 +82,12 @@ async function getRecipes() {
   return new Promise(async (resolve, reject)=>{
     for(let recipesFromURL of RECIPE_URLS){
       try{
-        console.log(await (await fetch(recipesFromURL)).json());
+        requestRecipes.push (await (await fetch(recipesFromURL)).json());
       }catch(err){
         console.log(err);
       }
     }
+    // console.log(requestRecipes);
   })
   /**************************/
   // A4-A11 will all be *inside* the callback function we passed to the Promise
