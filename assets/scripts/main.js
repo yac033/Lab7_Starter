@@ -85,9 +85,10 @@ async function getRecipes() {
         requestRecipes.push (await (await fetch(recipesFromURL)).json());
       }catch(err){
         console.log(err);
+        reject(err);
       }
     }
-    // console.log(requestRecipes);
+    resolve(requestRecipes);
   })
   /**************************/
   // A4-A11 will all be *inside* the callback function we passed to the Promise
