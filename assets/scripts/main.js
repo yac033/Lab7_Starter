@@ -75,7 +75,7 @@ async function getRecipes() {
   // A2. TODO - Create an empty array to hold the recipes that you will fetch
   let requestRecipes = [];
   if(existRecipes != null){
-    requestRecipes.push(existRecipes);
+    return existRecipes;
   }
   // A3. TODO - Return a new Promise. If you are unfamiliar with promises, MDN
   //            has a great article on them. A promise takes one parameter - A
@@ -85,12 +85,14 @@ async function getRecipes() {
   return new Promise(async (resolve, reject)=>{
     for(let recipesFromURL of RECIPE_URLS){
       try{
+        console.log(await (await fetch(recipesFromURL)).json());
         requestRecipes.push (await (await fetch(recipesFromURL)).json());
       }catch(err){
         console.log(err);
         reject(err);
       }
     }
+    saveRecipesToStorage(requestRecipes);
     resolve(requestRecipes);
   })
   /**************************/
