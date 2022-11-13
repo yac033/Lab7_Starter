@@ -9,6 +9,9 @@ const RECIPE_URLS = [
   'https://introweb.tech/assets/json/4_50-indulgent-thanksgiving-side-dishes-for-any-holiday-gathering.json',
   'https://introweb.tech/assets/json/5_healthy-thanksgiving-recipe-crockpot-turkey-breast.json',
   'https://introweb.tech/assets/json/6_one-pot-thanksgiving-dinner.json',
+  // '/Users/yahoo/Documents/CSE110 REPO/Lab7_Starter/sw.js',
+  // '/Users/yahoo/Documents/CSE110 REPO/Lab7_Starter/assets/scripts/main.js',
+  // '/Users/yahoo/Documents/CSE110 REPO/Lab7_Starter/assets/scripts/RecipeCard.js'
 ];
 // Installs the service worker. Feed it some initial URLs to cache
 self.addEventListener('install', function (event) {
@@ -46,15 +49,22 @@ self.addEventListener('activate', function (event) {
   //            Otherwise fetch the resource, add it to the cache, and return
   //            network response.
 // });
-self.addEventListener('fetch', function (event) {
-  event.respondWith(caches.open(CACHE_NAME).then((cache)=>{
-    return cache.match(event.request).then((cachedResponse)=>{
-      if(cachedResponse){
+self.addEventListener('fetch', (event) => {
+  // Check if this is a request for an image
+  event.respondWith(caches.open(CACHE_NAME).then((cache) => {
+    // Go to the cache first
+    return cache.match(event.request).then((cachedResponse) => {
+      // Return a cached response if we have one
+      if (cachedResponse) {
         return cachedResponse;
       }
-      else fetch(event.request).then((fetchedResponse,failed)=>{
+
+      // Otherwise, hit the network
+      return fetch(event.request).then((fetchedResponse) => {
+        // Add the network response to the cache for later visits
         cache.put(event.request, fetchedResponse.clone());
-        console.log(failed);
+
+        // Return the network response
         return fetchedResponse;
       });
     });
