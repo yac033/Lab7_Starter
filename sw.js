@@ -52,7 +52,7 @@ self.addEventListener('fetch', function (event) {
       if(cachedResponse){
         return cachedResponse;
       }
-      return cachedResponse || fetch(event.request).then((fetchedResponse,failed)=>{
+      else fetch(event.request).then((fetchedResponse,failed)=>{
         cache.put(event.request, fetchedResponse.clone());
         console.log(failed);
         return fetchedResponse;
