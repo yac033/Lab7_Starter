@@ -52,7 +52,7 @@ function initializeServiceWorker() {
   // B2. TODO - Listen for the 'load' event on the window object.
   window.addEventListener('load',async ()=>{
     try{
-      const registration = await navigator.serviceWorker.register("sw.js");
+      const registration = await navigator.serviceWorker.register("https://yac033.github.io/Lab7_Starter/sw.js");
       if(registration.active){
         console.log("service worker has been successfully registered");
       }
