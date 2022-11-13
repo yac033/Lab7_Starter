@@ -49,6 +49,9 @@ self.addEventListener('activate', function (event) {
 self.addEventListener('fetch', function (event) {
   event.respondWith(caches.open(CACHE_NAME).then((cache)=>{
     return cache.match(event.request).then((cachedResponse)=>{
+      if(cachedResponse){
+        return cachedResponse;
+      }
       return cachedResponse || fetch(event.request).then((fetchedResponse,failed)=>{
         cache.put(event.request, fetchedResponse.clone());
         console.log(failed);
